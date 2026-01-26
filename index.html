@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMBA Class Profile 11401</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>THU GMBA Class Profile</h1>
+            <p class="subtitle">Academic Year 114 Fall</p>
+        </header>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-number" id="totalStudents">0</div>
+                <div class="stat-label">Total Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCountries">0</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalMajors">0</div>
+                <div class="stat-label">Majors</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h2>Country Distribution</h2>
+                <canvas id="countryChart"></canvas>
+                <div id="countryStats" class="chart-stats"></div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Gender Distribution</h2>
+                <canvas id="genderChart"></canvas>
+                <div id="genderStats" class="chart-stats"></div>
+            </div>
+
+            <div class="chart-container full-width">
+                <h2>Top Majors</h2>
+                <canvas id="majorChart"></canvas>
+            </div>
+
+            <div class="chart-container full-width">
+                <h2>Gender by Country</h2>
+                <canvas id="genderByCountryChart"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data Source: GMBA Class Profile 11401</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
