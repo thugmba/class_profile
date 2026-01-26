@@ -77,6 +77,7 @@ function createCharts() {
     createGenderChart();
     createMajorChart();
     createGenderByCountryChart();
+    createWorldMap();
 }
 
 // Country distribution chart
@@ -492,13 +493,9 @@ function createWorldMap() {
         ],
         autocolorscale: false,
         reversescale: false,
+        showscale: false,
         marker_line_color: 'darkgray',
         marker_line_width: 0.5,
-        colorbar: {
-            title: 'Number of Students',
-            tickvals: Array.from({length: Math.max(...values) + 1}, (_, i) => i),
-            tickmode: 'linear'
-        },
         hovertemplate: '<b>%{text}</b><br>Students: %{z}<extra></extra>'
     }];
 
@@ -512,43 +509,10 @@ function createWorldMap() {
             countrycolor: 'rgb(204, 204, 204)'
         },
         height: 700,
-        margin: { l: 0, r: 0, t: 50, b: 0 },
-        annotations: []
+        margin: { l: 50, r: 50, t: 80, b: 50 },
+        paper_bgcolor: 'white',
+        plot_bgcolor: 'white'
     };
 
-    // Create annotations for top countries (showing only top 8 to avoid clutter)
-    const topCountries = Object.entries(countryCounts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 8);
-
-    topCountries.forEach(([country, count]) => {
-        const coords = countryCoordinates[country];
-        if (coords) {
-            // Create annotation with arrow pointing to country
-            layout.annotations.push({
-                x: coords.lon,
-                y: coords.lat,
-                text: `<b>${country}</b><br>${count} students`,
-                showarrow: true,
-                arrowhead: 2,
-                arrowsize: 1,
-                arrowwidth: 2,
-                arrowcolor: '#1a3a52',
-                ax: 50,
-                ay: -50,
-                bgcolor: 'rgba(255, 255, 255, 0.9)',
-                bordercolor: '#1a3a52',
-                borderwidth: 2,
-                borderpad: 8,
-                font: {
-                    size: 11,
-                    color: '#1a3a52',
-                    family: 'Arial'
-                },
-                align: 'center'
-            });
-        }
-    });
-
-    Plotly.newPlot('worldMap', data, layout, { responsive: true });
+    Plotly.newPlot('worldMap', data, layout, { responsive: true, displayModeBar: false });
 }
