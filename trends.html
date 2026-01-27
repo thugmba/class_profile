@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMBA Enrollment Trends</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1a3a52;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #c9a961;
+        }
+        .nav-link::before {
+            content: '\2190 ';
+        }
+        .note {
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .chart-container canvas {
+            max-height: 450px;
+        }
+        .highlight-card {
+            background: linear-gradient(135deg, #1a3a52, #2a7fa0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-link">Back to Class Profile</a>
+        <header>
+            <h1>THU GMBA Enrollment Trends</h1>
+            <p class="subtitle">Academic Years 107 &ndash; 114</p>
+        </header>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Years Tracked</div>
+            </div>
+            <div class="stat-card highlight-card">
+                <div class="stat-number">40</div>
+                <div class="stat-label">Peak Enrollment <span style="white-space:nowrap">(AY 114)</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">233%</div>
+                <div class="stat-label">Growth <span style="white-space:nowrap">(AY 107 &rarr; 114)</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">22</div>
+                <div class="stat-label">Countries Represented</div>
+            </div>
+        </div>
+
+        <p class="note">* AY 114 Spring intake not yet finalized</p>
+
+        <div class="charts-grid">
+            <div class="chart-container full-width">
+                <h2>Total Enrollment Growth</h2>
+                <canvas id="enrollmentTrendChart"></canvas>
+            </div>
+
+            <div class="chart-container full-width">
+                <h2>Enrollment by Admission Channel</h2>
+                <canvas id="channelChart"></canvas>
+                <p class="note" style="margin-top:15px;margin-bottom:0">"Local Students" includes both Taiwanese students and international students who graduated from a college in Taiwan.</p>
+            </div>
+
+            <div class="chart-container full-width">
+                <h2>International Applicant Pool</h2>
+                <canvas id="applicantChart"></canvas>
+            </div>
+
+            <div class="chart-container full-width">
+                <h2>Country Distribution Over Time</h2>
+                <canvas id="countryTrendChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Gender Distribution Over Time</h2>
+                <canvas id="genderTrendChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Country Diversity</h2>
+                <canvas id="diversityChart"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data Source: GMBA Enrollment Records, Academic Years 107&ndash;114</p>
+        </footer>
+    </div>
+
+    <script src="trends.js"></script>
+</body>
+</html>
