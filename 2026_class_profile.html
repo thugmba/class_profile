@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GMBA Class Profile – Tunghai University</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:          #FFC500;   /* GMBA THU brand gold */
+      --gold-grad:     #fed52e;   /* gradient light gold */
+      --gold-pale:     #fff8e1;   /* very light gold for backgrounds */
+      --dark:          #1f1f1f;   /* near-black (header/nav) */
+      --charcoal:      #4f4f4f;   /* secondary dark */
+      --text-dark:     #1f1f1f;
+      --text-mid:      #555555;
+      --text-light:    #999999;
+      --bg:            #f0f0f0;
+      --card:          #ffffff;
+      --border:        #e0e0e0;
+      --shadow:        0 2px 10px rgba(0,0,0,0.08);
+      --radius:        8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.6;
+      width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ─────────────────────────────── */
+    .page-header {
+      background: var(--dark);
+      color: #fff;
+      padding: 36px 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      right: -30px; bottom: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(255,197,0,0.08);
+      pointer-events: none;
+    }
+    .header-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      padding: 3px 12px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+    }
+    .page-header h2 {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      margin-top: 5px;
+    }
+    .header-kpis {
+      display: flex;
+      gap: 0;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .kpi {
+      flex: 1;
+      text-align: center;
+      padding: 0 8px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .kpi:last-child { border-right: none; }
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .kpi-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 5px;
+      line-height: 1.3;
+    }
+
+    /* ── Sections ────────────────────────────── */
+    .section {
+      padding: 28px 32px;
+    }
+    .section-alt {
+      background: #f7f7f7;
+    }
+    .section-divider {
+      height: 3px;
+      background: var(--gold);
+      opacity: 0.25;
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    .section-title span {
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 4px;
+    }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      margin-bottom: 22px;
+      margin-top: 6px;
+    }
+
+    /* ── Stat mini-grid ──────────────────────── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--border);
+    }
+    .stat-card.c-green  { border-top-color: var(--gold); }
+    .stat-card.c-gold   { border-top-color: var(--gold); }
+    .stat-card.c-blue   { border-top-color: var(--charcoal); }
+    .stat-card.c-orange { border-top-color: var(--charcoal); }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-mid);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* ── Cards ───────────────────────────────── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Two-column ──────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .two-col .card { margin-bottom: 0; }
+
+    /* ── Custom legend ───────────────────────── */
+    .custom-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      margin-top: 14px;
+      justify-content: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-text strong {
+      color: var(--text-dark);
+    }
+
+    /* ── Insight boxes ───────────────────────── */
+    .insight-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .insight-box {
+      background: var(--gold-pale);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .insight-box.gold-accent {
+      background: var(--dark);
+    }
+    .insight-box .ins-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .insight-box.gold-accent .ins-value { color: var(--gold); }
+    .insight-box.gold-accent .ins-label { color: rgba(255,255,255,0.65); }
+    .insight-box .ins-label {
+      font-size: 11px;
+      color: var(--text-mid);
+      margin-top: 4px;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .page-footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 14px;
+      font-size: 12px;
+    }
+    .page-footer strong {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     Header
+══════════════════════════════════════════ -->
+<header class="page-header">
+  <div class="header-tag">Academic Year 114 · 2025–2026</div>
+  <h1>GMBA Class Profile</h1>
+  <h2>Global MBA Program · Tunghai University (THU)</h2>
+  <div class="header-kpis">
+    <div class="kpi">
+      <div class="kpi-value">54</div>
+      <div class="kpi-label">Students enrolled<br>AY 114</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">98.1%</div>
+      <div class="kpi-label">International<br>student ratio</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">8</div>
+      <div class="kpi-label">Countries<br>represented</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value">176</div>
+      <div class="kpi-label">Applications<br>received</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     Section 1 – AY 114 Profile
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-title"><span>Academic Year 114 – Class Profile</span></div>
+  <div class="section-desc">A snapshot of the current cohort (AY 2025–2026). Fall and Spring intakes combined.</div>
+
+  <!-- Stat cards -->
+  <div class="stat-grid">
+    <div class="stat-card c-green">
+      <div class="stat-value">54</div>
+      <div class="stat-label">Total enrolled</div>
+    </div>
+    <div class="stat-card c-orange">
+      <div class="stat-value">40</div>
+      <div class="stat-sub">74.1%</div>
+      <div class="stat-label">Fall semester</div>
+    </div>
+    <div class="stat-card c-gold">
+      <div class="stat-value">14</div>
+      <div class="stat-sub">25.9%</div>
+      <div class="stat-label">Spring semester</div>
+    </div>
+    <div class="stat-card c-blue">
+      <div class="stat-value">53</div>
+      <div class="stat-sub">98.1%</div>
+      <div class="stat-label">International students</div>
+    </div>
+  </div>
+
+  <!-- Donut chart – nationality (total) -->
+  <div class="card">
+    <div class="card-title">Nationality distribution – All students (AY 114, Total: 54)</div>
+    <div style="height:280px;width:280px;margin:0 auto;position:relative"><canvas id="chartNationalityTotal"></canvas></div>
+    <div class="custom-legend" id="legendNationalityTotal"></div>
+  </div>
+
+  <!-- Fall + Spring bar charts -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Fall semester – by nationality (40 students)</div>
+      <div style="height:210px;position:relative"><canvas id="chartFallNat"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Spring semester – by nationality (14 students)</div>
+      <div style="height:210px;position:relative"><canvas id="chartSpringNat"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Internationalization metrics -->
+  <div class="card">
+    <div class="card-title">Internationalization metrics – AY 114</div>
+    <div style="height:120px;position:relative"><canvas id="chartIntlMetrics"></canvas></div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="ins-value">98.1%</div>
+        <div class="ins-label">International student ratio<br>(53 out of 54 students)</div>
+      </div>
+      <div class="insight-box">
+        <div class="ins-value">8</div>
+        <div class="ins-label">Countries represented<br>in the cohort</div>
+      </div>
+      <div class="insight-box gold-accent">
+        <div class="ins-value">30.7%</div>
+        <div class="ins-label">Overall acceptance rate<br>(54 enrolled / 176 applied)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     Section 2 – Year-by-Year Trends
+══════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="section-title"><span>Year-by-Year Trends (AY 107–114)</span></div>
+  <div class="section-desc">Eight-year enrollment history showing applications, enrollments, and country diversity.</div>
+
+  <!-- Line chart: applicants & enrolled -->
+  <div class="card">
+    <div class="card-title">Applications and enrollments over time</div>
+    <div style="height:230px;position:relative"><canvas id="chartTrendApplEnroll"></canvas></div>
+    <div class="custom-legend" id="legendTrendApplEnroll"></div>
+  </div>
+
+  <!-- Line chart: countries -->
+  <div class="card">
+    <div class="card-title">Countries represented per academic year</div>
+    <div style="height:190px;position:relative"><canvas id="chartTrendCountries"></canvas></div>
+  </div>
+
+  <!-- Line chart: intl ratio -->
+  <div class="card">
+    <div class="card-title">International student ratio by academic year (%)</div>
+    <div style="height:190px;position:relative"><canvas id="chartTrendIntl"></canvas></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     Section 3 – Spring vs Fall Analysis
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-title"><span>Spring vs. Fall Intake Analysis (AY 107–114)</span></div>
+  <div class="section-desc">Comparison of application volume, enrollment numbers, and acceptance rates between the two intakes.</div>
+
+  <!-- Grouped bar: applicants -->
+  <div class="card">
+    <div class="card-title">Applications per semester – Fall vs. Spring</div>
+    <div style="height:210px;position:relative"><canvas id="chartSFApplicants"></canvas></div>
+    <div class="custom-legend" id="legendSFApplicants"></div>
+  </div>
+
+  <!-- Grouped bar: enrolled -->
+  <div class="card">
+    <div class="card-title">Enrollments per semester – Fall vs. Spring</div>
+    <div style="height:210px;position:relative"><canvas id="chartSFEnrolled"></canvas></div>
+    <div class="custom-legend" id="legendSFEnrolled"></div>
+  </div>
+
+  <!-- Acceptance rate comparison -->
+  <div class="card">
+    <div class="card-title">Acceptance rate trend – Fall vs. Spring (%)</div>
+    <div style="height:210px;position:relative"><canvas id="chartSFRate"></canvas></div>
+    <div class="custom-legend" id="legendSFRate"></div>
+  </div>
+
+  <!-- Key insights -->
+  <div class="card">
+    <div class="card-title">Key insights – Spring vs. Fall</div>
+    <div class="insight-row">
+      <div class="insight-box">
+        <div class="ins-value">~3×</div>
+        <div class="ins-label">Fall enrollment is on average 3× larger than Spring across AY 107–114</div>
+      </div>
+      <div class="insight-box gold-accent">
+        <div class="ins-value">+213%</div>
+        <div class="ins-label">Fall applications grew from 38 (AY107) to 119 (AY114) – a 213% increase</div>
+      </div>
+      <div class="insight-box">
+        <div class="ins-value">33.6%</div>
+        <div class="ins-label">AY114 Fall acceptance rate vs. 24.6% for Spring – Fall is more competitive</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <strong>GMBA · Tunghai University</strong> &nbsp;|&nbsp; Data: AY 107–114 (2018–2026) &nbsp;|&nbsp; Updated: May 2025
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JavaScript – all chart definitions
+══════════════════════════════════════════ -->
+<script>
+/* All charts: fill their wrapper div and ignore aspect ratio */
+Chart.defaults.responsive = true;
+Chart.defaults.maintainAspectRatio = false;
+
+/* ── colour palettes ──────────────────────────────── */
+/* Country colors – vibrant, distinguishable palette */
+const COUNTRY_COLORS = {
+  Indonesia:      '#e55039',
+  Vietnam:        '#27ae60',
+  Taiwan:         '#2471a3',
+  Spain:          '#8e44ad',
+  Russia:         '#ca6f1e',
+  Malaysia:       '#f39c12',
+  Mongolia:       '#16a085',
+  Myanmar:        '#7f8c8d',
+  Thailand:       '#d35400',
+  Kyrgyzstan:     '#1abc9c',
+  India:          '#e91e63',
+  France:         '#3498db',
+  Singapore:      '#00bcd4',
+  Ukraine:        '#c0392b',
+  'South Africa': '#795548',
+  Brazil:         '#4caf50',
+  Nigeria:        '#9c27b0',
+  Bolivia:        '#ff5722',
+  'Hong Kong':    '#607d8b',
+  USA:            '#0d47a1',
+  Philippines:    '#e65100',
+  Turkey:         '#ad1457',
+};
+/* GMBA THU brand colors */
+const FALL_COLOR   = '#FFC500';   /* brand gold  – fall (larger intake) */
+const SPRING_COLOR = '#4f4f4f';   /* charcoal    – spring intake */
+const FALL_LIGHT   = 'rgba(255,197,0,0.15)';
+const SPRING_LIGHT = 'rgba(79,79,79,0.12)';
+
+/* ── raw data ─────────────────────────────────────── */
+const YEARS = ['AY107','AY108','AY109','AY110','AY111','AY112','AY113','AY114'];
+
+// Fall = Local + Overseas Chinese + Fall International
+const FALL_APPS     = [38, 48, 51, 86, 97, 85, 102, 119];
+const FALL_ENROLLED = [ 9, 12, 10, 19, 24, 25, 25,  40];
+// Spring = Spring International
+const SPRING_APPS     = [16, 17, 36, 43, 48, 23, 59, 57];
+const SPRING_ENROLLED = [ 3,  2,  3, 15,  7,  9, 11, 14];
+
+const TOTAL_APPS     = [54,  65,  87, 129, 145, 108, 161, 176];
+const TOTAL_ENROLLED = [12,  14,  13,  34,  31,  34,  36,  54];
+const COUNTRIES      = [ 5,   6,   6,  10,   9,   8,  11,   8];
+
+// Taiwan student count per year (local / domestic)
+const TAIWAN_ENROLLED = [5, 9, 6, 4, 4, 6, 3, 1];
+const INTL_RATIO = TOTAL_ENROLLED.map((t, i) =>
+  +((( t - TAIWAN_ENROLLED[i]) / t) * 100).toFixed(1));
+
+/* ── helpers ─────────────────────────────────────── */
+function pct(n, total) { return ((n / total) * 100).toFixed(1) + '%'; }
+
+function buildCustomLegend(containerId, labels, colors, counts, total) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '';
+  labels.forEach((lbl, i) => {
+    const p = ((counts[i] / total) * 100).toFixed(1);
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `
+      <span class="legend-dot" style="background:${colors[i]}"></span>
+      <span class="legend-text">
+        <strong>${lbl}</strong>: ${counts[i]} <span style="color:#8fa4b5">(${p}%)</span>
+      </span>`;
+    el.appendChild(item);
+  });
+}
+
+/* Plugin: draw value + pct labels on horizontal bars */
+const barLabelPlugin = {
+  id: 'barLabels',
+  afterDatasetsDraw(chart, args, opts) {
+    if (!opts || !opts.enabled) return;
+    const { ctx } = chart;
+    const total = opts.total;
+    chart.data.datasets.forEach((ds, di) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.hidden) return;
+      meta.data.forEach((bar, idx) => {
+        const val = ds.data[idx];
+        if (!val) return;
+        const p = total ? ((val / total) * 100).toFixed(1) : null;
+        const label = p !== null ? `${val}  (${p}%)` : `${val}`;
+        const barW = Math.abs(bar.x - bar.base);
+
+        ctx.save();
+        ctx.font = 'bold 11px Roboto, Segoe UI, Arial';
+        ctx.textBaseline = 'middle';
+
+        if (barW > 65) {
+          /* inside the bar – white text, horizontally centered */
+          ctx.textAlign = 'center';
+          ctx.fillStyle = '#fff';
+          ctx.fillText(label, (bar.base + bar.x) / 2, bar.y);
+        } else {
+          /* bar too narrow – text to the right, dark */
+          ctx.textAlign = 'left';
+          ctx.fillStyle = '#555';
+          ctx.fillText(label, bar.x + 5, bar.y);
+        }
+        ctx.restore();
+      });
+    });
+  }
+};
+Chart.register(barLabelPlugin);
+
+/* ── 1. Nationality donut – total ───────────────── */
+(function () {
+  const data = {
+    Indonesia: 35, Vietnam: 10, Taiwan: 1,
+    Spain: 2, Russia: 2, Malaysia: 2, Mongolia: 1, Myanmar: 1
+  };
+  const total = 54;
+  const labels  = Object.keys(data);
+  const counts  = Object.values(data);
+  const colors  = labels.map(l => COUNTRY_COLORS[l] || '#999');
+
+  new Chart(document.getElementById('chartNationalityTotal'), {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{ data: counts, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }]
+    },
+    options: {
+      cutout: '58%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.raw} (${pct(ctx.raw, total)})`
+          }
+        }
+      }
+    }
+  });
+  buildCustomLegend('legendNationalityTotal', labels, colors, counts, total);
+})();
+
+/* ── 2. Fall nationality bar ─────────────────────── */
+(function () {
+  const data = {
+    Indonesia: 27, Vietnam: 7, Spain: 2,
+    Taiwan: 1, Malaysia: 1, Mongolia: 1, Russia: 1
+  };
+  const total = 40;
+  const labels = Object.keys(data);
+  const counts = Object.values(data);
+  const colors = labels.map(l => COUNTRY_COLORS[l] || '#999');
+
+  new Chart(document.getElementById('chartFallNat'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data: counts, backgroundColor: colors, borderWidth: 0, borderRadius: 4 }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw} students (${pct(ctx.raw, total)})`
+          }
+        },
+        barLabels: { enabled: true, total }
+      },
+      scales: {
+        x: { display: false, max: Math.max(...counts) * 1.25 },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+})();
+
+/* ── 3. Spring nationality bar ───────────────────── */
+(function () {
+  const data = {
+    Indonesia: 8, Vietnam: 3, Malaysia: 1, Russia: 1, Myanmar: 1
+  };
+  const total = 14;
+  const labels = Object.keys(data);
+  const counts = Object.values(data);
+  const colors = labels.map(l => COUNTRY_COLORS[l] || '#999');
+
+  new Chart(document.getElementById('chartSpringNat'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data: counts, backgroundColor: colors, borderWidth: 0, borderRadius: 4 }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw} students (${pct(ctx.raw, total)})`
+          }
+        },
+        barLabels: { enabled: true, total }
+      },
+      scales: {
+        x: { display: false, max: Math.max(...counts) * 1.25 },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+})();
+
+/* ── 4. Internationalization metrics bar (continental) */
+(function () {
+  const labels = ['Asia', 'Europe', 'Taiwan (local)'];
+  const counts = [49, 4, 1]; // 49 Asia, 4 Europe (Spain+Russia), 1 Taiwan
+  const total  = 54;
+  const colors = ['#27ae60', '#8e44ad', '#2471a3'];
+
+  new Chart(document.getElementById('chartIntlMetrics'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data: counts, backgroundColor: colors, borderWidth: 0, borderRadius: 6 }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw} students (${pct(ctx.raw, total)})`
+          }
+        },
+        barLabels: { enabled: true, total }
+      },
+      scales: {
+        x: { display: false, max: 65 },
+        y: { grid: { display: false }, ticks: { font: { size: 12 } } }
+      }
+    }
+  });
+})();
+
+/* ── 5. Trend: applications & enrollments ───────── */
+(function () {
+  const labels = ['AY107','AY108','AY109','AY110','AY111','AY112','AY113','AY114'];
+  const ds1Colors = { bg: 'rgba(79,79,79,0.1)',    border: '#4f4f4f' };   /* charcoal – applications */
+  const ds2Colors = { bg: 'rgba(255,197,0,0.15)',  border: '#FFC500' };   /* gold     – enrollments */
+
+  new Chart(document.getElementById('chartTrendApplEnroll'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Applications',
+          data: TOTAL_APPS,
+          borderColor: ds1Colors.border,
+          backgroundColor: ds1Colors.bg,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 5,
+          pointBackgroundColor: ds1Colors.border,
+          borderWidth: 2.5
+        },
+        {
+          label: 'Enrollments',
+          data: TOTAL_ENROLLED,
+          borderColor: ds2Colors.border,
+          backgroundColor: ds2Colors.bg,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 5,
+          pointBackgroundColor: ds2Colors.border,
+          borderWidth: 2.5
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: 0,
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { size: 11 } }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+
+  buildCustomLegend(
+    'legendTrendApplEnroll',
+    ['Applications', 'Enrollments'],
+    [ds1Colors.border, ds2Colors.border],
+    [TOTAL_APPS[7], TOTAL_ENROLLED[7]],
+    TOTAL_APPS[7]
+  );
+  // Override legend to show latest values, not percentages
+  (function () {
+    const el = document.getElementById('legendTrendApplEnroll');
+    el.innerHTML = `
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#4f4f4f"></span>
+        <span class="legend-text"><strong>Applications</strong>: 176 in AY114</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#FFC500"></span>
+        <span class="legend-text"><strong>Enrollments</strong>: 54 in AY114</span>
+      </div>`;
+  })();
+})();
+
+/* ── 6. Trend: countries ─────────────────────────── */
+(function () {
+  new Chart(document.getElementById('chartTrendCountries'), {
+    type: 'line',
+    data: {
+      labels: YEARS,
+      datasets: [{
+        label: 'Countries',
+        data: COUNTRIES,
+        borderColor: '#FFC500',
+        backgroundColor: 'rgba(255,197,0,0.12)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 5,
+        pointBackgroundColor: '#FFC500',
+        borderWidth: 2.5
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+      scales: {
+        y: {
+          beginAtZero: false, min: 4, max: 13,
+          ticks: { stepSize: 1, font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+})();
+
+/* ── 7. Trend: international ratio ──────────────── */
+(function () {
+  new Chart(document.getElementById('chartTrendIntl'), {
+    type: 'line',
+    data: {
+      labels: YEARS,
+      datasets: [{
+        label: 'International ratio (%)',
+        data: INTL_RATIO,
+        borderColor: '#4f4f4f',
+        backgroundColor: 'rgba(79,79,79,0.08)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 5,
+        pointBackgroundColor: '#4f4f4f',
+        borderWidth: 2.5
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+      scales: {
+        y: {
+          min: 30, max: 100,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+})();
+
+/* ── 8. Spring vs Fall – applications ───────────── */
+(function () {
+  new Chart(document.getElementById('chartSFApplicants'), {
+    type: 'bar',
+    data: {
+      labels: YEARS,
+      datasets: [
+        {
+          label: 'Fall intake applications',
+          data: FALL_APPS,
+          backgroundColor: FALL_COLOR,
+          borderRadius: 4
+        },
+        {
+          label: 'Spring intake applications',
+          data: SPRING_APPS,
+          backgroundColor: SPRING_COLOR,
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { size: 11 } }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+
+  const el = document.getElementById('legendSFApplicants');
+  el.innerHTML = `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${FALL_COLOR}"></span>
+      <span class="legend-text"><strong>Fall intake</strong>: 119 applications in AY114</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${SPRING_COLOR}"></span>
+      <span class="legend-text"><strong>Spring intake</strong>: 57 applications in AY114</span>
+    </div>`;
+})();
+
+/* ── 9. Spring vs Fall – enrollments ────────────── */
+(function () {
+  new Chart(document.getElementById('chartSFEnrolled'), {
+    type: 'bar',
+    data: {
+      labels: YEARS,
+      datasets: [
+        {
+          label: 'Fall intake enrolled',
+          data: FALL_ENROLLED,
+          backgroundColor: FALL_COLOR,
+          borderRadius: 4
+        },
+        {
+          label: 'Spring intake enrolled',
+          data: SPRING_ENROLLED,
+          backgroundColor: SPRING_COLOR,
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: { font: { size: 11 } }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+
+  const el = document.getElementById('legendSFEnrolled');
+  el.innerHTML = `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${FALL_COLOR}"></span>
+      <span class="legend-text"><strong>Fall intake</strong>: 40 enrolled in AY114</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${SPRING_COLOR}"></span>
+      <span class="legend-text"><strong>Spring intake</strong>: 14 enrolled in AY114</span>
+    </div>`;
+})();
+
+/* ── 10. Spring vs Fall – acceptance rate ─────────── */
+(function () {
+  const fallRates   = FALL_APPS.map((a, i) => +((FALL_ENROLLED[i]   / a) * 100).toFixed(1));
+  const springRates = SPRING_APPS.map((a, i) => +((SPRING_ENROLLED[i] / a) * 100).toFixed(1));
+
+  new Chart(document.getElementById('chartSFRate'), {
+    type: 'line',
+    data: {
+      labels: YEARS,
+      datasets: [
+        {
+          label: 'Fall acceptance rate (%)',
+          data: fallRates,
+          borderColor: FALL_COLOR,
+          backgroundColor: 'rgba(27,94,66,0.1)',
+          fill: false,
+          tension: 0.35,
+          pointRadius: 5,
+          pointBackgroundColor: FALL_COLOR,
+          borderWidth: 2.5
+        },
+        {
+          label: 'Spring acceptance rate (%)',
+          data: springRates,
+          borderColor: SPRING_COLOR,
+          backgroundColor: 'rgba(201,162,39,0.1)',
+          fill: false,
+          tension: 0.35,
+          pointRadius: 5,
+          pointBackgroundColor: SPRING_COLOR,
+          borderWidth: 2.5,
+          borderDash: [5, 4]
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: { label: ctx => ` ${ctx.dataset.label.split(' ')[0]}: ${ctx.raw}%` }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 50,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+
+  const el = document.getElementById('legendSFRate');
+  el.innerHTML = `
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${FALL_COLOR}"></span>
+      <span class="legend-text"><strong>Fall acceptance rate</strong>: 33.6% in AY114</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background:${SPRING_COLOR}"></span>
+      <span class="legend-text"><strong>Spring acceptance rate</strong>: 24.6% in AY114</span>
+    </div>`;
+})();
+</script>
+</body>
+</html>
